@@ -4,5 +4,5 @@ namespace MiniBank.Api.Services;
 
 public interface IAccountService
 {
-  List<Account> GetAll();
+    List<Account> GetAll();
 }
