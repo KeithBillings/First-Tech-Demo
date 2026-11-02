@@ -1,4 +1,5 @@
 using MiniBank.Api.Models;
+
 namespace MiniBank.Api.Services;
 
 public class AccountService : IAccountService
