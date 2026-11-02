@@ -1,6 +1,39 @@
 @MiniBank.Api_HostAddress = http://localhost:5087
 
+### Hello
 GET {{MiniBank.Api_HostAddress}}/hello
 Accept: application/json
 
-###
+### List all accounts
+GET {{MiniBank.Api_HostAddress}}/accounts
+Accept: application/json
+
+### Withdraw: success (expect 200 + updated account)
+POST {{MiniBank.Api_HostAddress}}/accounts/1/withdraw
+Content-Type: application/json
+
+{ "amount": 50.25 }
+
+### Withdraw: overdraft (David has $95.50, expect 400)
+POST {{MiniBank.Api_HostAddress}}/accounts/4/withdraw
+Content-Type: application/json
+
+{ "amount": 500 }
+
+### Withdraw: negative amount (expect 400)
+POST {{MiniBank.Api_HostAddress}}/accounts/1/withdraw
+Content-Type: application/json
+
+{ "amount": -20 }
+
+### Withdraw: unknown account (expect 404)
+POST {{MiniBank.Api_HostAddress}}/accounts/999/withdraw
+Content-Type: application/json
+
+{ "amount": 10 }
+
+### Withdraw: malformed body (expect automatic 400 from [ApiController])
+POST {{MiniBank.Api_HostAddress}}/accounts/1/withdraw
+Content-Type: application/json
+
+{ "amount": "lots" }
