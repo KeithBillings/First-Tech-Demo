@@ -17,4 +17,26 @@ public class AccountService : IAccountService
     {
         return _accounts;
     }
+
+    public Account Withdraw(int id, decimal amount)
+    {
+        if (amount <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(amount), "Amount must be greater than zero.");
+        }
+
+        var account = _accounts.FirstOrDefault(a => a.Id == id);
+        if (account == null)
+        {
+            throw new KeyNotFoundException($"Account with ID {id} not found.");
+        }
+
+        if (amount > account.Balance)
+        {
+            throw new InvalidOperationException("Insufficient funds for this withdrawal.");
+        }
+
+        account.Balance -= amount;
+        return account;
+    }
 }
