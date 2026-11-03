@@ -42,13 +42,5 @@ public class AccountsController : ControllerBase
         {
             return BadRequest(ex.Message);
         }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"An unexpected error occurred: {ex.Message}");
-        }
     }
 }
